@@ -1,12 +1,14 @@
 package dev.collegues.entite;
 
+import java.time.LocalDate;
+
 public class Collegue {
 
 	private String matricule;
 	private String nom;
 	private String prenoms;
 	private String email;
-	private String dateDeNaissance;
+	private LocalDate dateDeNaissance;
 	private String photoUrl;
 
 	/**
@@ -68,14 +70,14 @@ public class Collegue {
 	/**
 	 * @return the dateDeNaissance
 	 */
-	public String getDateDeNaissance() {
+	public LocalDate getDateDeNaissance() {
 		return dateDeNaissance;
 	}
 
 	/**
 	 * @param dateDeNaissance the dateDeNaissance to set
 	 */
-	public void setDateDeNaissance(String dateDeNaissance) {
+	public void setDateDeNaissance(LocalDate dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 
