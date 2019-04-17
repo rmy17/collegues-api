@@ -1,12 +1,14 @@
 package dev.collegues.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import dev.collegues.entite.Collegue;
+import dev.collegues.exception.RetourException;
 
 public class CollegueService {
 
@@ -23,20 +25,23 @@ public class CollegueService {
 		collegue0.setEmail("blabla@email.com");
 		collegue0.setDateDeNaissance("1900-11-25");
 		collegue0.setPhotoUrl("https://pixabay.com/fr/photos/notre-dame-l-architecture-eglise-3672868/");
-		data.put(collegue0.getNom(), collegue0);
+		data.put(collegue0.getMatricule(), collegue0);
 		Collegue collegue1 = new Collegue();
-		collegue1.setNom("Cartier");
+		collegue1.setNom("Dupond");
 		collegue1.setPrenoms("Jacque");
 		collegue1.setMatricule(UUID.randomUUID().toString());
 		collegue1.setEmail("fefklfbn@email.com");
 		collegue1.setDateDeNaissance("1874-08-14");
 		collegue1.setPhotoUrl("https://pixabay.com/fr/photos/notre-dame-l-architecture-eglise-3672868/");
-		data.put(collegue1.getNom(), collegue1);
+		data.put(collegue1.getMatricule(), collegue1);
 	}
 
 	public List<Collegue> rechercherParNom(String nomRecherche) {
-		List<Collegue> collegues = new ArrayList<>();
-		collegues.add(data.get(nomRecherche));
-		return collegues;
+		return this.data.values().stream().filter(col -> col.getNom().equals(nomRecherche))
+				.collect(Collectors.toList());
+	}
+
+	public Collegue rechercherParMatricule(String matriculeRecherche) throws RetourException {
+		return Optional.ofNullable(data.get(matriculeRecherche)).orElseThrow(RetourException::new);
 	}
 }
