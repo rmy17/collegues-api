@@ -60,15 +60,15 @@ public class CollegueService {
 		if (collegueAAjouter.getEmail().substring(0, collegueAAjouter.getEmail().indexOf("@")).length() < 3) {
 			throw new CollegueInvalideException("L'email doit contenir plus de 3 caractères avnt le @ ");
 		}
-		if (collegueAAjouter.getPhotoUrl().startsWith("http")) {
+		if (!collegueAAjouter.getPhotoUrl().startsWith("http")) {
 			throw new CollegueInvalideException("L'url doit commencer par 'http'");
 		}
-		if (LocalDate.now().getYear() - collegueAAjouter.getDateDeNaissance().getYear() >= 18) {
+		if (LocalDate.now().getYear() - collegueAAjouter.getDateDeNaissance().getYear() < 18) {
 			throw new CollegueInvalideException("Vous devez avoir plus de  18 ans'");
 		} else {
 			collegueAAjouter.setMatricule(UUID.randomUUID().toString());
 			data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
 		}
-
 	}
+
 }
