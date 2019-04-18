@@ -11,8 +11,8 @@ public class RestResponseEntityExceptionHandler {
 	// la méthode handleConflict est exécutée lorsqu'un contrôleur émet une
 	// exception présente
 	// dans la liste définie par l'annotation @ExceptionHandler
-	@ExceptionHandler(value = { RetourException.class })
-	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+	@ExceptionHandler(value = { CollegueNonTrouveException.class })
+	protected ResponseEntity<Object> handleConflict3(RuntimeException ex, WebRequest request) {
 		String bodyOfResponse = "Collegue non trouvé";
 		return ResponseEntity.status(404).body(bodyOfResponse);
 	}
@@ -22,4 +22,5 @@ public class RestResponseEntityExceptionHandler {
 		String bodyOfResponse = "Collegue invalide : " + CollegueInvalideException.msg;
 		return ResponseEntity.status(404).body(bodyOfResponse);
 	}
+
 }

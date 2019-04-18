@@ -1,7 +1,6 @@
 package dev.colleguesapi.service;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +23,7 @@ public class CollegueServiceTest {
 		collegueService = new CollegueService();
 		collegue.setPrenoms("Jean");
 		collegue.setNom("Dupond");
-		collegue.setMatricule(UUID.randomUUID().toString());
+		collegue.setMatricule("1");
 		collegue.setEmail("blabla@email.com");
 		collegue.setDateDeNaissance(LocalDate.of(1993, 11, 20));
 		collegue.setPhotoUrl("https://pixabay.com/fr/photos/notre-dame-l-architecture-eglise-3672868/");
@@ -58,7 +57,7 @@ public class CollegueServiceTest {
 
 	@Test(expected = CollegueInvalideException.class)
 	public void ajouterUnCollegue_email_contient_pas_arobase() {
-		LOG.info("Losrque que je sauvegarde un collegue avec un email inférieur à 3 caractères");
+		LOG.info("Losrque que je sauvegarde un collegue avec un email sans arobase");
 		LOG.info("Alors une exception Collegue est lancée");
 		collegue.setEmail("blabla.email.com");
 		collegueService.ajouterUnCollegue(collegue);
@@ -80,4 +79,27 @@ public class CollegueServiceTest {
 		collegueService.ajouterUnCollegue(collegue);
 	}
 
+	@Test(expected = CollegueInvalideException.class)
+	public void modifierEmail_email_contien_pas_arobase() {
+		LOG.info("Losrque que je sauvegarde un collegue avec un email sans aroase");
+		LOG.info("Alors une exception Collegue est lancée");
+		collegue.setEmail("blabla.email.com");
+		collegueService.modifierEmail(collegue.getMatricule(), collegue.getEmail());
+	}
+
+	@Test(expected = CollegueInvalideException.class)
+	public void modifierEmail_email_inferieur_3_caracteres() {
+		LOG.info("Losrque que je sauvegarde un collegue avec un email inférieur à 3 caractères");
+		LOG.info("Alors une exception Collegue est lancée");
+		collegue.setEmail("bl@email.com");
+		collegueService.modifierEmail(collegue.getMatricule(), collegue.getEmail());
+	}
+
+	@Test(expected = CollegueInvalideException.class)
+	public void modifierPhotoUrl_url_sans_http() {
+		LOG.info("Losrque que je sauvegarde un collegue avec un email inférieur à 3 caractères");
+		LOG.info("Alors une exception Collegue est lancée");
+		collegue.setPhotoUrl("efefhefuief");
+		collegueService.modifierPhotoUrl(collegue.getMatricule(), collegue.getPhotoUrl());
+	}
 }
