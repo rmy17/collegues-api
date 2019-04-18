@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import dev.collegues.entite.Collegue;
 import dev.collegues.exception.CollegueInvalideException;
@@ -14,6 +15,8 @@ import dev.collegues.service.CollegueService;
 public class CollegueServiceTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CollegueService.class);
+
+	@Autowired
 	private CollegueService collegueService;
 
 	private Collegue collegue = new Collegue();

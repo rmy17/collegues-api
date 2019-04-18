@@ -79,7 +79,7 @@ public class CollegueService {
 		if (!email.contains("@")) {
 			throw new CollegueInvalideException("L'email ne contient pas de @");
 		}
-		if (email.substring(0, collegue1.getEmail().indexOf("@")).length() < 3) {
+		if (email.substring(0, email.indexOf("@")).length() < 3) {
 			throw new CollegueInvalideException("L'email doit contenir plus de 3 caractères avnt le @ ");
 		}
 		collegue1.setEmail(email);
