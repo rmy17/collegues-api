@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,9 +45,9 @@ public class CollegueController {
 	}
 
 	@PostMapping
-	public void create(@RequestBody Collegue collegue) {
-		colServ.ajouterUnCollegue(collegue);
-		LOG.info("Le nouveau collegue a été ajouté");
+	public ResponseEntity<Object> create(@RequestBody Collegue collegue) {
+		Collegue collegue1 = colServ.ajouterUnCollegue(collegue);
+		return ResponseEntity.status(HttpStatus.OK).body(collegue1);
 	}
 
 }

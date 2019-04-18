@@ -47,7 +47,7 @@ public class CollegueService {
 		return Optional.ofNullable(data.get(matriculeRecherche)).orElseThrow(RetourException::new);
 	}
 
-	public void ajouterUnCollegue(Collegue collegueAAjouter) throws CollegueInvalideException {
+	public Collegue ajouterUnCollegue(Collegue collegueAAjouter) throws CollegueInvalideException {
 		if (collegueAAjouter.getNom().length() < 2) {
 			throw new CollegueInvalideException("Le nom inférieur à 2 caractères");
 		}
@@ -68,7 +68,12 @@ public class CollegueService {
 		} else {
 			collegueAAjouter.setMatricule(UUID.randomUUID().toString());
 			data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
+			return collegueAAjouter;
 		}
+	}
+
+	public Collegue modifierEmail(String matricule, String email) {
+
 	}
 
 }
