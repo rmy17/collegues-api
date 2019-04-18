@@ -16,4 +16,10 @@ public class RestResponseEntityExceptionHandler {
 		String bodyOfResponse = "Collegue non trouvé";
 		return ResponseEntity.status(404).body(bodyOfResponse);
 	}
+
+	@ExceptionHandler(value = { CollegueInvalideException.class })
+	protected ResponseEntity<Object> handleConflict2(RuntimeException ex, WebRequest request) {
+		String bodyOfResponse = "Collegue invalide : " + CollegueInvalideException.msg;
+		return ResponseEntity.status(404).body(bodyOfResponse);
+	}
 }

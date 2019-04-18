@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import dev.collegues.entite.Collegue;
+import dev.collegues.exception.CollegueInvalideException;
 import dev.collegues.exception.RetourException;
 
 public class CollegueService {
@@ -46,11 +47,28 @@ public class CollegueService {
 		return Optional.ofNullable(data.get(matriculeRecherche)).orElseThrow(RetourException::new);
 	}
 
-	public Collegue ajouterUnCollegue(Collegue collegueAAjouter) {
-		if (collegueAAjouter.getNom().length() >= 2 && collegueAAjouter.getPrenoms().length() >= 2
-				&& collegueAAjouter.getEmail().length() >= 3 && collegueAAjouter.getEmail().contains("@") == true
-				&& collegueAAjouter.getPhotoUrl().startsWith("http") == true && collegueAAjouter.getDateDeNaissance()) {
-
+	public void ajouterUnCollegue(Collegue collegueAAjouter) throws CollegueInvalideException {
+		if (collegueAAjouter.getNom().length() < 2) {
+			throw new CollegueInvalideException("Le nom inférieur à 2 caractères");
 		}
+		if (collegueAAjouter.getPrenoms().length() < 2) {
+			throw new CollegueInvalideException("Prenom doit avoir plus de 2 caractères");
+		}
+		if (!collegueAAjouter.getEmail().contains("@")) {
+			throw new CollegueInvalideException("L'email ne contient pas de @");
+		}
+		if (collegueAAjouter.getEmail().substring(0, collegueAAjouter.getEmail().indexOf("@")).length() < 3) {
+			throw new CollegueInvalideException("L'email doit contenir plus de 3 caractères avnt le @ ");
+		}
+		if (collegueAAjouter.getPhotoUrl().startsWith("http")) {
+			throw new CollegueInvalideException("L'url doit commencer par 'http'");
+		}
+		if (LocalDate.now().getYear() - collegueAAjouter.getDateDeNaissance().getYear() >= 18) {
+			throw new CollegueInvalideException("Vous devez avoir plus de  18 ans'");
+		} else {
+			collegueAAjouter.setMatricule(UUID.randomUUID().toString());
+			data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
+		}
+
 	}
 }
