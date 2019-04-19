@@ -2,8 +2,13 @@ package dev.collegues.entite;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Collegue {
 
+	@Id
 	private String matricule;
 	private String nom;
 	private String prenoms;

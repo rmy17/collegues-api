@@ -1,35 +1,37 @@
-package dev.colleguesapi.service;
+package dev.collegues.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import dev.collegues.entite.Collegue;
 import dev.collegues.exception.CollegueInvalideException;
-import dev.collegues.service.CollegueService;
+import dev.collegues.repository.CollegueRepository;
 
 public class CollegueServiceTest {
 
+	CollegueRepository mockedRepo = Mockito.mock(CollegueRepository.class);
 	private static final Logger LOG = LoggerFactory.getLogger(CollegueService.class);
 
-	@Autowired
-	private CollegueService collegueService;
+	private CollegueService collegueService = new CollegueService();
 
 	private Collegue collegue = new Collegue();
 
 	@Before
 	public void init() {
-		collegueService = new CollegueService();
+		// collegueService = new CollegueService();
 		collegue.setPrenoms("Jean");
 		collegue.setNom("Dupond");
 		collegue.setMatricule("1");
 		collegue.setEmail("blabla@email.com");
 		collegue.setDateDeNaissance(LocalDate.of(1993, 11, 20));
 		collegue.setPhotoUrl("https://pixabay.com/fr/photos/notre-dame-l-architecture-eglise-3672868/");
+		collegueService.setCollegueRepository(mockedRepo);
 	}
 
 	@Test(expected = CollegueInvalideException.class)
@@ -87,6 +89,7 @@ public class CollegueServiceTest {
 		LOG.info("Losrque que je sauvegarde un collegue avec un email sans aroase");
 		LOG.info("Alors une exception Collegue est lancée");
 		collegue.setEmail("blabla.email.com");
+		Mockito.when(mockedRepo.findById(collegue.getMatricule())).thenReturn(Optional.of(collegue));
 		collegueService.modifierEmail(collegue.getMatricule(), collegue.getEmail());
 	}
 
@@ -95,6 +98,7 @@ public class CollegueServiceTest {
 		LOG.info("Losrque que je sauvegarde un collegue avec un email inférieur à 3 caractères");
 		LOG.info("Alors une exception Collegue est lancée");
 		collegue.setEmail("bl@email.com");
+		Mockito.when(mockedRepo.findById(collegue.getMatricule())).thenReturn(Optional.of(collegue));
 		collegueService.modifierEmail(collegue.getMatricule(), collegue.getEmail());
 	}
 
@@ -103,6 +107,7 @@ public class CollegueServiceTest {
 		LOG.info("Losrque que je sauvegarde un collegue avec un email inférieur à 3 caractères");
 		LOG.info("Alors une exception Collegue est lancée");
 		collegue.setPhotoUrl("efefhefuief");
+		Mockito.when(mockedRepo.findById(collegue.getMatricule())).thenReturn(Optional.of(collegue));
 		collegueService.modifierPhotoUrl(collegue.getMatricule(), collegue.getPhotoUrl());
 	}
 }
