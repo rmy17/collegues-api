@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import dev.collegues.entite.Collegue;
 import dev.collegues.exception.CollegueInvalideException;
+import dev.collegues.exception.CollegueNonTrouveException;
 import dev.collegues.repository.CollegueRepository;
 
 public class CollegueServiceTest {
@@ -85,7 +86,7 @@ public class CollegueServiceTest {
 	}
 
 	@Test(expected = CollegueInvalideException.class)
-	public void modifierEmail_email_contien_pas_arobase() {
+	public void modifierEmail_email_contient_pas_arobase() {
 		LOG.info("Losrque que je sauvegarde un collegue avec un email sans aroase");
 		LOG.info("Alors une exception Collegue est lancée");
 		collegue.setEmail("blabla.email.com");
@@ -110,4 +111,12 @@ public class CollegueServiceTest {
 		Mockito.when(mockedRepo.findById(collegue.getMatricule())).thenReturn(Optional.of(collegue));
 		collegueService.modifierPhotoUrl(collegue.getMatricule(), collegue.getPhotoUrl());
 	}
+
+	@Test(expected = CollegueNonTrouveException.class)
+	public void modifierPhotoUrl_mauvais_matricule() {
+		LOG.info("Losrque que je sauvegarde un collegue avec un mauvais matricule");
+		LOG.info("Alors une exception Collegue non trouvé est lancée");
+		Mockito.when(mockedRepo.findById("grghrghreg")).thenReturn(Optional.of(collegue));
+	}
+
 }
