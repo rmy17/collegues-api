@@ -27,7 +27,7 @@ public class StartupDataInit {
 		collegue0.setPrenoms("Jean");
 		collegue0.setEmail("blabla@email.com");
 		collegue0.setDateDeNaissance(LocalDate.of(1993, 11, 20));
-		collegue0.setPhotoUrl("https://pixabay.com/fr/photos/notre-dame-l-architecture-eglise-3672868/");
+		collegue0.setPhotoUrl("https://cdn.pixabay.com/photo/2014/04/03/10/32/businessman-310819__340.png");
 		collegueService.ajouterUnCollegue(collegue0);
 		Collegue collegue1 = new Collegue();
 		collegue1.setNom("Dupond");
@@ -35,7 +35,7 @@ public class StartupDataInit {
 		collegue1.setMatricule(UUID.randomUUID().toString());
 		collegue1.setEmail("fefklfbn@email.com");
 		collegue1.setDateDeNaissance(LocalDate.of(1874, 8, 14));
-		collegue1.setPhotoUrl("https://pixabay.com/fr/photos/notre-dame-l-architecture-eglise-3672868/");
+		collegue1.setPhotoUrl("https://cdn.pixabay.com/photo/2014/04/03/10/32/businessman-310819__340.png");
 		collegueService.ajouterUnCollegue(collegue1);
 
 	}
