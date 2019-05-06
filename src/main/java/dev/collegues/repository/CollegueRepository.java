@@ -11,4 +11,7 @@ public interface CollegueRepository extends JpaRepository<Collegue, String> {
 	Collegue findByMatricule(String matricule);
 
 	List<Collegue> findByNom(String nom);
+
+	List<Collegue> findByEmail(String email);
+
 }

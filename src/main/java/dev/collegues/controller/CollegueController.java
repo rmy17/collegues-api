@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.collegues.entite.Collegue;
 import dev.collegues.entite.CollegueAModifier;
+import dev.collegues.entite.ColleguePhoto;
 import dev.collegues.exception.CollegueInvalideException;
 import dev.collegues.service.CollegueService;
 
@@ -42,6 +43,16 @@ public class CollegueController {
 			matricules.add(c.getMatricule());
 		}
 		return matricules;
+	}
+
+	@GetMapping(value = "/photos")
+	public List<ColleguePhoto> recupPhoto() {
+		return colServ.recupCollePhoto();
+	}
+
+	@GetMapping(value = "/verif")
+	public boolean existEmail(@RequestParam("email") String email) {
+		return colServ.existEmail(email);
 	}
 
 	@RequestMapping(path = "/{matricule}", method = RequestMethod.GET)

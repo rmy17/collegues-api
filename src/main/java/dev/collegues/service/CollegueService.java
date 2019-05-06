@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.collegues.entite.Collegue;
+import dev.collegues.entite.ColleguePhoto;
 import dev.collegues.exception.CollegueInvalideException;
 import dev.collegues.exception.CollegueNonTrouveException;
 import dev.collegues.repository.CollegueRepository;
@@ -49,6 +51,22 @@ public class CollegueService {
 		} else {
 			throw new CollegueNonTrouveException();
 		}
+	}
+
+	/**
+	 * @param existEmail
+	 * @return Boolean
+	 */
+	public boolean existEmail(String email) {
+		if (!collegueRepository.findByEmail(email).isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+	public List<ColleguePhoto> recupCollePhoto() {
+		return collegueRepository.findAll().stream()
+				.map(col -> new ColleguePhoto(col.getMatricule(), col.getPhotoUrl())).collect(Collectors.toList());
 	}
 
 	/**
