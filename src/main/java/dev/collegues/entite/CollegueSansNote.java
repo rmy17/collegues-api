@@ -1,25 +1,15 @@
 package dev.collegues.entite;
 
 import java.time.LocalDate;
-import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+public class CollegueSansNote {
 
-@Entity
-public class Collegue {
-
-	@Id
 	private String matricule;
 	private String nom;
 	private String prenoms;
 	private String email;
 	private LocalDate dateDeNaissance;
 	private String photoUrl;
-
-	@OneToMany(mappedBy = "collegue")
-	private Set<Note> textes;
 
 	/**
 	 * @return the matricule
