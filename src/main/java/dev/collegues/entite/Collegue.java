@@ -3,14 +3,10 @@ package dev.collegues.entite;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
 public class Collegue {
 
-	@Id
 	private String matricule;
 	private String nom;
 	private String prenoms;

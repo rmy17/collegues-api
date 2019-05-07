@@ -36,4 +36,5 @@ public class NoteController {
 			@RequestBody NoteSansCollegue noteSansCollegue) {
 		return ResponseEntity.status(HttpStatus.OK).body(noteServ.addUneNote(matricule, noteSansCollegue.getText()));
 	}
+
 }
