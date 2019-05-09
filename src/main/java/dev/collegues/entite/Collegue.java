@@ -1,18 +1,31 @@
 package dev.collegues.entite;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+@Entity
 public class Collegue {
 
+	@Id
 	private String matricule;
 	private String nom;
 	private String prenoms;
 	private String email;
 	private LocalDate dateDeNaissance;
 	private String photoUrl;
+
+	private String motDePasse;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles = new ArrayList<>();
 
 	@OneToMany(mappedBy = "collegue")
 	private Set<Note> textes;
@@ -99,5 +112,47 @@ public class Collegue {
 	 */
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+
+	/**
+	 * @return the motDePasse
+	 */
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	/**
+	 * @param motDePasse the motDePasse to set
+	 */
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+
+	/**
+	 * @return the textes
+	 */
+	public Set<Note> getTextes() {
+		return textes;
+	}
+
+	/**
+	 * @param textes the textes to set
+	 */
+	public void setTextes(Set<Note> textes) {
+		this.textes = textes;
 	}
 }
