@@ -112,7 +112,7 @@ public class CollegueServiceTest {
 		collegueService.modifierPhotoUrl(collegue.getMatricule(), collegue.getPhotoUrl());
 	}
 
-	@Test(expected = CollegueInvalideException.class)
+	@Test(expected = CollegueNonTrouveException.class)
 	public void modifierPhotoUrl_mauvais_matricule() {
 		LOG.info("Losrque que je sauvegarde un collegue avec un mauvais matricule");
 		LOG.info("Alors une exception Collegue non trouvé est lancée");
