@@ -21,7 +21,6 @@ public class Collegue {
 	private String email;
 	private LocalDate dateDeNaissance;
 	private String photoUrl;
-
 	private String motDePasse;
 
 	@ElementCollection(fetch = FetchType.EAGER)

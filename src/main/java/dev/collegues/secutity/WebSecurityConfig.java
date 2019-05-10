@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				// désactivation de la protection CSRF
 				// non utilisée dans le cadre d'une Web API
-				.csrf().disable()
+				.csrf().disable().cors().and()
 
 				// toutes les requêtes sont permises
 				// => aucune n'est soumise à authentification
@@ -61,8 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// Les autres requêtes sont soumises à authentification
 				.anyRequest().authenticated()
 
-				// TODO
-				// accès à la console h2 sans authentification
 				.and().headers().frameOptions().disable().and()
 				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
 				// Gestion de la déconnexion

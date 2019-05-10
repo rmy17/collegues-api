@@ -7,14 +7,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.collegues.entite.Collegue;
+import dev.collegues.entite.CollegueConnecte;
 import dev.collegues.entite.ColleguePhoto;
 import dev.collegues.exception.CollegueInvalideException;
 import dev.collegues.exception.CollegueNonTrouveException;
 import dev.collegues.repository.CollegueRepository;
+import dev.collegues.repository.UtilisateurRepository;
 
 /**
  * @author rmy17
@@ -25,6 +28,9 @@ public class CollegueService {
 
 	@Autowired
 	CollegueRepository collegueRepository;
+
+	@Autowired
+	private UtilisateurRepository utilisateurRepository;
 
 	/**
 	 * @param nomRecherche
@@ -147,6 +153,17 @@ public class CollegueService {
 	 */
 	public void setCollegueRepository(CollegueRepository collegueRepository) {
 		this.collegueRepository = collegueRepository;
+	}
+
+	public CollegueConnecte recupCollegueActif(String email) {
+		CollegueConnecte colConnect = new CollegueConnecte();
+		Collegue CollegueTrouve = this.utilisateurRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+		colConnect.setEmail(CollegueTrouve.getEmail());
+		colConnect.setNom(CollegueTrouve.getNom());
+		colConnect.setPrenom(CollegueTrouve.getPrenoms());
+		colConnect.setRoles(CollegueTrouve.getRoles());
+		return colConnect;
 	}
 
 }

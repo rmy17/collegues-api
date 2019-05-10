@@ -8,5 +8,5 @@ import dev.collegues.entite.Collegue;
 
 public interface UtilisateurRepository extends JpaRepository<Collegue, String> {
 
-	Optional<Collegue> findByMatricule(String matricule);
+	Optional<Collegue> findByEmail(String email);
 }

@@ -2,21 +2,21 @@ package dev.collegues.dto;
 
 public class InfosAuthentification {
 
-	private String adresseMail;
+	private String email;
 	private String motDePasse;
 
 	/**
 	 * @return the adresseMail
 	 */
-	public String getAdresseMail() {
-		return adresseMail;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
 	 * @param adresseMail the adresseMail to set
 	 */
-	public void setAdresseMail(String adresseMail) {
-		this.adresseMail = adresseMail;
+	public void setEmail(String adresseMail) {
+		this.email = adresseMail;
 	}
 
 	public String getMotDePasse() {

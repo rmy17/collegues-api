@@ -27,14 +27,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	//
 	// L'interface UserDetails détaille le contrat attendu par Spring Security.
 	@Override
-	public UserDetails loadUserByUsername(String matricule) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		// Recherche d'utilisateur par nom utilisateur
-		Collegue CollegueTrouve = this.utilisateurRepository.findByMatricule(matricule)
+		// Recherche d'utilisateur par matricule
+		Collegue CollegueTrouve = this.utilisateurRepository.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
-
 		// Création d'un objet User (implémentant UserDetails)
 		return new User(CollegueTrouve.getEmail(), CollegueTrouve.getMotDePasse(),
 				CollegueTrouve.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 	}
+
 }

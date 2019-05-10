@@ -16,17 +16,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.collegues.dto.InfosAuthentification;
+import dev.collegues.entite.CollegueConnecte;
+import dev.collegues.service.CollegueService;
 import io.jsonwebtoken.Jwts;
 
-@CrossOrigin
 @RestController
 public class AuthentificationCtrl {
 
@@ -42,13 +44,15 @@ public class AuthentificationCtrl {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@Autowired
+	private CollegueService colServ;
+
 	@PostMapping(value = "/auth")
 	public ResponseEntity authenticate(@RequestBody InfosAuthentification authenticationRequest,
 			HttpServletResponse response) {
-
 		// encapsulation des informations de connexion
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-				authenticationRequest.getAdresseMail(), authenticationRequest.getMotDePasse());
+				authenticationRequest.getEmail(), authenticationRequest.getMotDePasse());
 
 		// vérification de l'authentification
 		// une exception de type `BadCredentialsException` en cas d'informations non
@@ -74,6 +78,13 @@ public class AuthentificationCtrl {
 
 		return ResponseEntity.ok().build();
 
+	}
+
+	@GetMapping("/me")
+	public CollegueConnecte recupCollegueConnecte() {
+		CollegueConnecte colConnect = new CollegueConnecte();
+		colConnect = colServ.recupCollegueActif(SecurityContextHolder.getContext().getAuthentication().getName());
+		return colConnect;
 	}
 
 	@ExceptionHandler(BadCredentialsException.class)
