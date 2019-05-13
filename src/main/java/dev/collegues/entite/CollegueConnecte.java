@@ -9,8 +9,9 @@ import javax.persistence.FetchType;
 public class CollegueConnecte {
 
 	private String email;
-	private String Nom;
-	private String Prenom;
+	private String nom;
+	private String prenom;
+	private String photoUrl;
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles = new ArrayList<>();
 
@@ -32,28 +33,28 @@ public class CollegueConnecte {
 	 * @return the nom
 	 */
 	public String getNom() {
-		return Nom;
+		return nom;
 	}
 
 	/**
 	 * @param nom the nom to set
 	 */
 	public void setNom(String nom) {
-		Nom = nom;
+		this.nom = nom;
 	}
 
 	/**
 	 * @return the prenom
 	 */
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
 
 	/**
 	 * @param prenom the prenom to set
 	 */
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		this.prenom = prenom;
 	}
 
 	/**
@@ -68,6 +69,20 @@ public class CollegueConnecte {
 	 */
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	/**
+	 * @return the photoUrl
+	 */
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	/**
+	 * @param photoUrl the photoUrl to set
+	 */
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 
 }
