@@ -163,6 +163,7 @@ public class CollegueService {
 		colConnect.setNom(CollegueTrouve.getNom());
 		colConnect.setPrenom(CollegueTrouve.getPrenoms());
 		colConnect.setRoles(CollegueTrouve.getRoles());
+		colConnect.setPhotoUrl(CollegueTrouve.getPhotoUrl());
 		return colConnect;
 	}
 
